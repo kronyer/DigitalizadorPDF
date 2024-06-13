@@ -37,7 +37,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(444, 346);
+            button1.Location = new Point(445, 400);
             button1.Name = "button1";
             button1.Size = new Size(265, 55);
             button1.TabIndex = 0;
@@ -50,7 +50,8 @@
             pictureBox1.BackColor = SystemColors.ActiveBorder;
             pictureBox1.Location = new Point(27, 31);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(300, 370);
+            pictureBox1.Size = new Size(300, 424);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
@@ -62,7 +63,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 489);
             Controls.Add(pictureBox1);
             Controls.Add(button1);
             MaximizeBox = false;
