@@ -1,5 +1,7 @@
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using WIA;
@@ -8,21 +10,61 @@ namespace Digitalizador
 {
     public partial class Digitalizador : Form
     {
-
+        private BackgroundWorker scannerWorker;
         public Digitalizador()
         {
             InitializeComponent();
+            LoadScanners();
+
+        }
+
+        private void LoadScanners()
+        {
+            try
+            {
+                var deviceManager = new DeviceManager();
+                comboBoxScanners.Items.Clear();
+
+                for (int i = 1; i < deviceManager.DeviceInfos.Count; i++)
+                {
+                    var deviceInfo = deviceManager.DeviceInfos[i];
+                    var deviceType = (WiaDeviceType)deviceInfo.Type;
+                    var deviceName = deviceInfo.Properties["Name"].get_Value().ToString();
+
+                    if (deviceType == WiaDeviceType.ScannerDeviceType)
+                    {
+                        comboBoxScanners.Items.Add(deviceName);
+                    }
+                }
+
+                if (comboBoxScanners.Items.Count > 0)
+                {
+                    comboBoxScanners.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum scanner foi encontrado.");
+                }
+            }
+            catch (COMException ex)
+            {
+                MessageBox.Show($"Erro WIA: {ex.Message} (0x{ex.ErrorCode:X})");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                if (comboBoxScanners.SelectedItem == null)
+                {
+                    MessageBox.Show("Selecione um scanner.");
+                    return;
+                }
+
                 var deviceManager = new DeviceManager();
                 Device scanner = null;
 
-                // Adicionar logs para verificar dispositivos
-                MessageBox.Show($"Total de dispositivos encontrados: {deviceManager.DeviceInfos.Count}");
 
                 for (int i = 1; i <= deviceManager.DeviceInfos.Count; i++)
                 {
@@ -30,11 +72,11 @@ namespace Digitalizador
                     var deviceType = (WiaDeviceType)deviceInfo.Type;
                     var deviceName = deviceInfo.Properties["Name"].get_Value().ToString();
 
-                    MessageBox.Show($"Verificando dispositivo {i}: {deviceName} (Tipo: {deviceType})");
+                    //log
+                    //MessageBox.Show($"Verificando dispositivo {i}: {deviceName} (Tipo: {deviceType})");
 
-                    if (deviceType == WiaDeviceType.ScannerDeviceType)
+                    if (deviceType == WiaDeviceType.ScannerDeviceType && deviceName == comboBoxScanners.SelectedItem.ToString())
                     {
-                        MessageBox.Show("Scanner encontrado!");
                         scanner = deviceInfo.Connect();
                         break;
                     }
@@ -43,17 +85,20 @@ namespace Digitalizador
                 if (scanner != null)
                 {
                     var item = scanner.Items[1];
+                    
                     var imgFile = (ImageFile)item.Transfer(FormatID.wiaFormatJPEG);
+                    
 
                     var tempFilePath = Path.GetTempFileName();
                     File.Delete(tempFilePath);
                     var filePath = Path.ChangeExtension(tempFilePath, "jpg");
                     imgFile.SaveFile(filePath);
 
+
                     var image = Image.FromFile(filePath);
                     pictureBox1.Image = image;
 
-                    
+
                     using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                     {
                         saveFileDialog.Filter = "PDF Files|*.pdf";
@@ -98,8 +143,20 @@ namespace Digitalizador
                 }
 
                 document.Save(filePath);
-                MessageBox.Show($"Arquivo salvo em: {filePath}");
+                labelWherePath.Text = $"{filePath}";
+
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(labelWherePath.Text))
+            {
+                MessageBox.Show("Nenhum arquivo foi salvo");
+                return;
+            }
+            Process.Start("explorer.exe", labelWherePath.Text);
+
         }
     }
 }

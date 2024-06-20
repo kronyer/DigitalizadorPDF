@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digitalizador", "Digitalizador\Digitalizador.csproj", "{B484C8BB-1657-4882-B473-5388FC0761F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digitalizador", "Digitalizador\Digitalizador.csproj", "{B484C8BB-1657-4882-B473-5388FC0761F6}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DigitalizadorSetup", "DigitalizadorSetup\DigitalizadorSetup.vdproj", "{A652CB96-F387-4A9D-9D51-CA4FCB331727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{B484C8BB-1657-4882-B473-5388FC0761F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B484C8BB-1657-4882-B473-5388FC0761F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B484C8BB-1657-4882-B473-5388FC0761F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A652CB96-F387-4A9D-9D51-CA4FCB331727}.Debug|Any CPU.ActiveCfg = Debug
+		{A652CB96-F387-4A9D-9D51-CA4FCB331727}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
