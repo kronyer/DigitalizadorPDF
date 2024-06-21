@@ -4,6 +4,9 @@ Esse é um projeto feito para facilitar a vida do meu avô, que possui uma HP Ph
 
 A imagem é adquirida utilizando o WIA, armazenada temporariamente em .jpg e logo após convertida em .pdf e salva no local escolhido pelo usuário.
 
+![image](https://github.com/kronyer/DigitalizadorPDF/assets/152650887/91cc8364-7426-4169-8688-2731c728c358)
+
+
 ## Sobre o funcionamento do projeto
 - É verificado a existencia de scanners no inicio da aplicação e as opções disponíveis são adicionadas ao dropdown de escolha
 - Há uma ImageBox em formato a4 para o preview do que foi digitalizado
