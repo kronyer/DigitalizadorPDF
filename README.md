@@ -1,5 +1,8 @@
 # Digitalizador
 
+<strong>Atualmente não está funcionando, o commit working funciona. Preciso fazer debug no computador do meu avô pois o meu nao tem scanner</strong>
+
+
 Esse é um projeto feito para facilitar a vida do meu avô, que possui uma HP Photosmart da série 4600 que perdeu seu hub de digitalização com o fim do Flash Player.
 
 A imagem é adquirida utilizando o WIA, armazenada temporariamente em .jpg e logo após convertida em .pdf e salva no local escolhido pelo usuário.
